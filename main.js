@@ -9,8 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 새로운 메시지 요소 생성
         const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message", "sent");
-        messageDiv.innerHTML = `<img src="avatar1.png" alt="나" class="profile-img"> ${messageText}`;
+        messageDiv.classList.add("message", "sent");  // 보낸 메시지 스타일 적용
+        messageDiv.innerHTML = `<img src="avatar1.png" alt="나" class="profile-img"> 
+        <span>${messageText}</span>`;
 
         // 채팅창에 추가
         chatWindow.appendChild(messageDiv);

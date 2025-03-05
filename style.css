@@ -79,7 +79,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     max-height: 380px;
     background-image: url('chat-bg.png');
     background-size: cover;
@@ -90,21 +90,26 @@ body {
 .message {
     max-width: 60%;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
+    word-wrap: break-word;
 }
-
+/* 받은 메시지 스타일 */
 .received {
     background: #ecf0f1;
     align-self: flex-start;
+    border-radius: 15px 15px 15px 0;
+    padding: 10px 15px;
 }
-
+/* 보낸 메시지 스타일 */
 .sent {
-    background: #2ecc71;
+    background: skyblue;
     color: white;
     align-self: flex-end;
+    border-radius: 15px 15px 0 15px;
+    padding: 10px 15px;
 }
 
 /* 메시지 프로필 이미지 */
