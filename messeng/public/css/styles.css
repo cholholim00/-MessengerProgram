@@ -1,0 +1,116 @@
+/* 공통 스타일 */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 스타일 */
+h1.logo_naver {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1.logo_naver a {
+    text-decoration: none;
+    color: #2db400;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 폼 스타일 */
+form.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form.form input[type="text"],
+form.form input[type="password"],
+form.form input[type="tel"],
+form.form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form.form input:focus {
+    border-color: #2db400;
+    outline: none;
+}
+
+form.form button {
+    padding: 10px 15px;
+    background-color: #2db400;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form.form button:hover {
+    background-color: #249a00;
+}
+
+/* 링크 스타일 */
+a {
+    color: #2db400;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 메시지 스타일 */
+.message {
+    font-size: 14px;
+    color: #d9534f;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* 인덱스 페이지 스타일 */
+.index-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.index-container h1 {
+    font-size: 36px;
+    color: #2db400;
+    margin-bottom: 20px;
+}
+
+.index-container a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #2db400;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.index-container a:hover {
+    background-color: #249a00;
+}
