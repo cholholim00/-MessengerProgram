@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>회원가입</title>
+  <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+  <h2>회원가입</h2>
+  <input type="text" id="signupUsername" placeholder="아이디" />
+  <input type="password" id="signupPassword" placeholder="비밀번호" />
+  <button onclick="signup()">가입하기</button>
+
+  <script>
+    function signup() {
+      const username = document.getElementById('signupUsername').value;
+      const password = document.getElementById('signupPassword').value;
+
+      // 로컬스토리지에 저장
+      localStorage.setItem('savedUsername', username);
+      localStorage.setItem('savedPassword', password);
+
+      let users = JSON.parse(localStorage.getItem('savedUsers')) || [];
+
+      if (!users.includes(username)) {
+        users.push(username);
+        localStorage.setItem('savedUsers', JSON.stringify(users));
+      }
+
+      alert('회원이 되신 걸 축하합니다!');
+
+      // 로그인 페이지로 이동
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

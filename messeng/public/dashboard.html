@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>대시보드</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h3>유저 목록</h3>
+      <ul id="userList"></ul>
+    </div>
+    <div id="chatroomContainer" style="flex: 1; padding: 20px;"></div>
+  </div>
+  <script>
+    const user = localStorage.getItem('loggedInUser');
+    console.log("현재 로그인된 유저:", user);
+    
+    if (!user) {
+      alert('로그인이 필요합니다!');
+      window.location.href = 'login.html';
+    }
+
+    const userList = document.getElementById('userList');
+    const chatroomContainer = document.getElementById('chatroomContainer');
+    const savedUsers = JSON.parse(localStorage.getItem('savedUsers')) || [];
+    
+    if (savedUsers.length === 0) {
+      const singleUser = localStorage.getItem('savedUsername');
+      if (singleUser) {
+        savedUsers.push(singleUser);
+      }
+    }
+
+    console.log('불러온 유저 목록:', savedUsers);
+
+    savedUsers.forEach(username => {
+      if (username && typeof username === 'string') {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.textContent = username;
+        link.href = '#';
+        link.style.textDecoration = 'none';
+        link.style.color = '#333';
+        li.appendChild(link);
+
+        if (username === user) {
+          link.style.fontWeight = 'bold';
+          link.style.color = '#fae100';
+        }
+
+        link.addEventListener('click', () => {
+          openChatroom(user, username);
+        });
+
+        userList.appendChild(li);
+      }
+    });
+
+    function openChatroom(currentUser, targetUser) {
+      const messageKey = [currentUser, targetUser].sort().join('_');
+      const messages = JSON.parse(localStorage.getItem(messageKey)) || [];
+
+      chatroomContainer.innerHTML = `
+        <div class="chat-header"><h2>${targetUser}님과의 채팅</h2></div>
+        <div class="chat-body" id="chatBody" style="height: 300px; overflow-y: auto; background: #fff; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+        <div class="chat-input">
+          <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." style="width: 80%; padding: 8px;" />
+          <button id="sendButton" style="padding: 8px;">전송</button>
+        </div>
+      `;
+
+      const chatBody = document.getElementById('chatBody');
+      const messageInput = document.getElementById('messageInput');
+      const sendButton = document.getElementById('sendButton');
+
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.textContent = `${msg.sender}: ${msg.text}`;
+        chatBody.appendChild(div);
+      });
+
+      sendButton.addEventListener('click', () => {
+        const text = messageInput.value.trim();
+        if (!text) return;
+
+        const newMessage = {
+          sender: currentUser,
+          text: text,
+          timestamp: Date.now()
+        };
+
+        messages.push(newMessage);
+        localStorage.setItem(messageKey, JSON.stringify(messages));
+
+        const div = document.createElement('div');
+        div.textContent = `${currentUser}: ${text}`;
+        chatBody.appendChild(div);
+        messageInput.value = '';
+      });
+    }
+  </script>
+</body>
+</html>

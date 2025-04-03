@@ -47,5 +47,53 @@
         </footer>
     </main>
     <script src="js/chat.js"></script>
+    <script>
+      const chatWindow = document.getElementById('chatWindow');
+      const messageInput = document.getElementById('messageInput');
+      const sendButton = document.getElementById('sendButton');
+
+      // 현재 로그인된 사용자
+      const currentUser = localStorage.getItem('loggedInUser');
+
+      // URL에서 대상 유저 추출
+      const params = new URLSearchParams(window.location.search);
+      const targetUser = params.get('user');
+
+      if (!targetUser) {
+        alert('대화할 상대가 없습니다.');
+        window.location.href = 'dashboard.html';
+      }
+
+      // 메시지 키 생성 (A-B 조합)
+      const messageKey = [currentUser, targetUser].sort().join('_');
+
+      // 메시지 불러오기
+      const messages = JSON.parse(localStorage.getItem(messageKey)) || [];
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.textContent = `${msg.sender}: ${msg.text}`;
+        chatWindow.appendChild(div);
+      });
+
+      // 메시지 전송
+      sendButton.addEventListener('click', () => {
+        const text = messageInput.value.trim();
+        if (!text) return;
+
+        const newMessage = {
+          sender: currentUser,
+          text: text,
+          timestamp: Date.now()
+        };
+
+        messages.push(newMessage);
+        localStorage.setItem(messageKey, JSON.stringify(messages));
+
+        const div = document.createElement('div');
+        div.textContent = `${currentUser}: ${text}`;
+        chatWindow.appendChild(div);
+        messageInput.value = '';
+      });
+    </script>
 </body>
 </html>
