@@ -1,50 +1,112 @@
-.chat {
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    color: #333;
+}
+
+/* 메인 컨테이너 스타일 */
+main {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background-color: #f0f0f0;
+    gap: 10px;
 }
 
-.chat-header {
-    background-color: #007aff;
-    color: white;
-    padding: 15px;
-    font-size: 20px;
+/* 채팅 상대 이름 스타일 */
+#chatWithUser {
+    font-size: 1.5rem;
+    color: #4CAF50;
     text-align: center;
+    margin-bottom: 10px;
 }
 
-.chat-window {
+/* 메시지 영역 스타일 */
+.messages {
     flex: 1;
-    padding: 10px;
     overflow-y: auto;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.chat-input {
-    display: flex;
+    border: 1px solid #ddd;
     padding: 10px;
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-}
-
-#messageInput {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px;
+    background-color: #f9f9f9;
+    max-height: 300px;
 }
 
-#sendButton {
-    background-color: #007aff;
+/* 메시지 스타일 */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message.me {
+    background-color: #4CAF50;
+    color: white;
+    text-align: right;
+    margin-left: auto;
+}
+
+.message.them {
+    background-color: #ddd;
+    color: black;
+    text-align: left;
+    margin-right: auto;
+}
+
+/* 삭제 버튼 스타일 */
+.deleteButton {
+    background-color: red;
+    color: white;
     border: none;
     border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.deleteButton:hover {
+    background-color: darkred;
+}
+
+/* 입력 영역 스타일 */
+.chatInput {
+    display: flex;
+    gap: 10px;
+}
+
+.chatInput input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.chatInput button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
 }
 
-#sendButton img {
-    width: 20px;
-    height: 20px;
+.chatInput button:hover {
+    background-color: #45a049;
 }

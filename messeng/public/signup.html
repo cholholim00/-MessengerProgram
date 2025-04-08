@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>회원가입</title>
-  <link rel="stylesheet" href="css/signup.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
-  <h2>회원가입</h2>
-  <input type="text" id="signupUsername" placeholder="아이디" />
-  <input type="password" id="signupPassword" placeholder="비밀번호" />
-  <button onclick="signup()">가입하기</button>
+    <main>
+        <h1>회원가입</h1>
+        <form id="signupForm">
+            <label for="signupUsername">사용자 이름:</label>
+            <input type="text" id="signupUsername" name="signupUsername" placeholder="아이디를 입력하세요" required>
 
-  <script>
-    function signup() {
-      const username = document.getElementById('signupUsername').value;
-      const password = document.getElementById('signupPassword').value;
+            <label for="signupPassword">비밀번호:</label>
+            <input type="password" id="signupPassword" name="signupPassword" placeholder="비밀번호를 입력하세요" required>
 
-      // 로컬스토리지에 저장
-      localStorage.setItem('savedUsername', username);
-      localStorage.setItem('savedPassword', password);
-
-      let users = JSON.parse(localStorage.getItem('savedUsers')) || [];
-
-      if (!users.includes(username)) {
-        users.push(username);
-        localStorage.setItem('savedUsers', JSON.stringify(users));
-      }
-
-      alert('회원이 되신 걸 축하합니다!');
-
-      // 로그인 페이지로 이동
-      window.location.href = 'login.html';
-    }
-  </script>
+            <button type="submit">회원가입</button>
+        </form>
+        <p id="errorMessage" style="color: red; display: none;">회원가입에 실패했습니다. 다시 시도하세요.</p>
+        <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+    </main>
+    <script src="/src/js/signup.js"></script>
 </body>
 </html>

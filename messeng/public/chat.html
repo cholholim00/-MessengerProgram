@@ -4,96 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채팅</title>
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/chat.css">
-    <script>
-        (function() {
-            const username = localStorage.getItem("username");
-            if (!username) {
-                alert("로그인 후 이용해주세요.");
-                window.location.href = "login.html";
-            }
-        })();
-    </script>
 </head>
 <body>
-    <aside class="sidebar">
-        <h2><i class="fas fa-user-friends"></i> 친구 목록</h2>
-        <ul>
-            <li>
-                <img src="images/avatar1.png" alt="사용자1" class="profile-img">
-                <span class="friend-name">사용자 1</span>
-            </li>
-            <li>
-                <img src="images/avatar1.png" alt="사용자2" class="profile-img">
-                <span class="friend-name">사용자 2</span>
-            </li>
-            <li>
-                <img src="images/avatar1.png" alt="사용자3" class="profile-img">
-                <span class="friend-name">사용자 3</span>
-            </li>
-        </ul>
-    </aside>
-    <main class="chat">
-        <header class="chat-header">
-            <i class="fas fa-comments"></i> 채팅방
-        </header>
-        <div class="chat-window" id="chatWindow"></div>
-        <footer class="chat-input">
-            <input type="text" id="messageInput" placeholder="메시지 입력...">
-            <button id="sendButton">
-                <img src="images/send-icon.png" alt="전송">
-            </button>
-        </footer>
+    <main>
+        <h1 id="chatWithUser"></h1>
+        <div id="chatMessages" class="messages"></div>
+        <div class="chatInput">
+            <input type="text" id="messageInput" placeholder="메시지를 입력하세요">
+            <button id="sendMessage">전송</button>
+        </div>
     </main>
-    <script src="js/chat.js"></script>
-    <script>
-      const chatWindow = document.getElementById('chatWindow');
-      const messageInput = document.getElementById('messageInput');
-      const sendButton = document.getElementById('sendButton');
-
-      // 현재 로그인된 사용자
-      const currentUser = localStorage.getItem('loggedInUser');
-
-      // URL에서 대상 유저 추출
-      const params = new URLSearchParams(window.location.search);
-      const targetUser = params.get('user');
-
-      if (!targetUser) {
-        alert('대화할 상대가 없습니다.');
-        window.location.href = 'dashboard.html';
-      }
-
-      // 메시지 키 생성 (A-B 조합)
-      const messageKey = [currentUser, targetUser].sort().join('_');
-
-      // 메시지 불러오기
-      const messages = JSON.parse(localStorage.getItem(messageKey)) || [];
-      messages.forEach(msg => {
-        const div = document.createElement('div');
-        div.textContent = `${msg.sender}: ${msg.text}`;
-        chatWindow.appendChild(div);
-      });
-
-      // 메시지 전송
-      sendButton.addEventListener('click', () => {
-        const text = messageInput.value.trim();
-        if (!text) return;
-
-        const newMessage = {
-          sender: currentUser,
-          text: text,
-          timestamp: Date.now()
-        };
-
-        messages.push(newMessage);
-        localStorage.setItem(messageKey, JSON.stringify(messages));
-
-        const div = document.createElement('div');
-        div.textContent = `${currentUser}: ${text}`;
-        chatWindow.appendChild(div);
-        messageInput.value = '';
-      });
-    </script>
+    <script src="/src/js/chat.js"></script>
 </body>
 </html>
