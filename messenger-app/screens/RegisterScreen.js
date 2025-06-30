@@ -5,36 +5,48 @@ import { auth, db } from '../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 
 export default function RegisterScreen({ navigation }) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegister = async () => {
     try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-    // ✅ Firestore에 유저 정보 등록
-    await setDoc(doc(db, 'users', user.uid), {
-      email: user.email,
-      createdAt: new Date()
-    });
+      // ✅ Firestore users 컬렉션에 이름 포함 저장
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        displayName: name,
+        createdAt: new Date()
+      });
 
-    Alert.alert('성공', '회원가입 완료!');
-    navigation.navigate('Login');
-  } catch (error) {
-    Alert.alert('오류', error.message);
-  }
+      Alert.alert('성공', '회원가입 완료!');
+      navigation.navigate('Login');
+    } catch (error) {
+      Alert.alert('오류', error.message);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>회원가입</Text>
+
+      {/* ✅ 닉네임 입력 */}
+      <TextInput
+        placeholder="닉네임"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
+
       <TextInput
         placeholder="이메일"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
       />
+
       <TextInput
         placeholder="비밀번호"
         secureTextEntry
@@ -42,6 +54,7 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={setPassword}
         style={styles.input}
       />
+
       <Button title="회원가입" onPress={handleRegister} />
       <Text onPress={() => navigation.goBack()} style={styles.link}>
         로그인으로 돌아가기
